@@ -8,6 +8,7 @@ const routes: Routes = [
   { path: 'listado-visitas', loadChildren: './pages/listado-visitas/listado-visitas.module#ListadoVisitasPageModule' },
   { path: 'comunicado-visitas', loadChildren: './pages/comunicado-visitas/comunicado-visitas.module#ComunicadoVisitasPageModule' },
   { path: 'documento-visita', loadChildren: './pages/documento-visita/documento-visita.module#DocumentoVisitaPageModule' },
+  { path: 'validado-visitas', loadChildren: './pages/validado-visitas/validado-visitas.module#ValidadoVisitasPageModule' },
 ];
 
 @NgModule({

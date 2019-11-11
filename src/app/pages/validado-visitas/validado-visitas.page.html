@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<app-header titulo="Listado Visitas">  </app-header>
-
-
+<app-header titulo="Validación Visitas">  </app-header>
 
   <ion-list-header style="padding:0">
     <ion-row style="
@@ -19,7 +17,7 @@
           <ion-label >Empresa</ion-label>
         </ion-col>
         <ion-col >
-          <ion-label >Validado</ion-label>
+          <ion-label >Validar</ion-label>
         </ion-col>
     </ion-row>
   </ion-list-header>
@@ -27,16 +25,17 @@
 
 <ion-content >
     <ion-list>
-      <ion-item *ngFor="let d of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" routerlink="/home" 
-      detail style="border-bottom: groove; text-align: center;" >
-        <ion-row style="width: 100%">
+        <ion-item *ngFor="let d of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]"
+        style="border-bottom: groove; text-align: center;">
+          <ion-row style="width: 100%">
           <ion-col *ngFor="let c of ['10/11/2019','09:00','13:20','AtSistemas']">
             <ion-label >{{c}}</ion-label>
           </ion-col>
 
-          <ion-col >
-              <ion-checkbox style="margin:0; margin-inline-start: 50%;" color="primary"
-              [(ngModel)]="binding"></ion-checkbox>
+          <ion-col  style="padding: 0 0 2% 0;" >
+              <ion-button #first color="warning" (click)="validation(first,second)">
+                <ion-icon #second name="warning" color="primary"></ion-icon>
+              </ion-button>
           </ion-col>
         </ion-row>
       </ion-item>
