@@ -1,9 +1,21 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>Gestión de visitas</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-list lines="none">
+    <ion-item *ngFor="let pagina of paginas" detail=false>
+      <ion-card [routerLink]="pagina.redireccion">
+          <ion-img [src]="pagina.imagen"
+                   [alt]="pagina.descripcion"
+                   style="width: 50%; margin: 0 25%;"></ion-img>              
+          <ion-card-content style="text-align: center;" color="primary">
+            {{pagina.nombre}}
+          </ion-card-content>
+      </ion-card>
+    </ion-item>
+  </ion-list>
 
 </ion-content>
