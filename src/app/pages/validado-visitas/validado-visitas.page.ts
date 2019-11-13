@@ -12,10 +12,4 @@ export class ValidadoVisitasPage implements OnInit {
   ngOnInit() {
   }
 
-  validation(ionicButton, ionicIcon) {
-    ionicButton.color = "success";
-    ionicIcon.color = "warning";
-    ionicIcon.name = "done-all";
-  }
-
 }

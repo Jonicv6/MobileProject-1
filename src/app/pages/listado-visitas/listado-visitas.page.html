@@ -10,10 +10,14 @@
           <ion-label >Día</ion-label>
         </ion-col>
         <ion-col >
+<<<<<<< HEAD
          <ion-label >Inicio</ion-label>
         </ion-col>
         <ion-col >
          <ion-label >Final</ion-label>
+=======
+         <ion-label >Horas</ion-label>
+>>>>>>> dev-Joni
         </ion-col>
         <ion-col >
           <ion-label >Empresa</ion-label>
@@ -28,10 +32,25 @@
 <ion-content >
     <ion-list>
       <ion-item *ngFor="let d of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" routerlink="/home" 
-      detail style="border-bottom: groove; text-align: center;" >
+      detail style="border-bottom: groove; text-align: center;" class="ion-no-padding" >
         <ion-row style="width: 100%">
-          <ion-col *ngFor="let c of ['10/11/2019','09:00','13:20','AtSistemas']">
-            <ion-label >{{c}}</ion-label>
+          <ion-col>
+            <ion-label>10/11/2019</ion-label>
+          </ion-col>
+          
+          <ion-col>
+            <ion-row>
+              <ion-col>
+               09:00
+              </ion-col>
+              <ion-col>
+                13:20
+              </ion-col>
+            </ion-row>
+          </ion-col>
+
+          <ion-col>
+            pepito de los palotes empresa SL
           </ion-col>
 
           <ion-col >
