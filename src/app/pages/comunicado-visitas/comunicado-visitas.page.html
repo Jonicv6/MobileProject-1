@@ -50,7 +50,7 @@
           <ion-radio-group>
             <ion-row>
               <!--Grupo de rabio buttons-->
-              <ion-radio-group allow-empty-selection=true>
+              <ion-radio-group>
                 <!--Sí-->
                 <ion-col>
                   <ion-radio [value]="hora.radio_si" [disabled]="hora.radio_deshabilitado"></ion-radio>
@@ -58,7 +58,7 @@
                 </ion-col>
                 <!--No-->       
                 <ion-col>
-                    <ion-radio [value]="hora.radio_no" [disabled]="hora.radio_deshabilitado"></ion-radio>
+                    <ion-radio [value]="hora.radio_no" [disabled]="hora.radio_deshabilitado" checked></ion-radio>
                     <ion-label>No</ion-label>
                 </ion-col>
               </ion-radio-group>

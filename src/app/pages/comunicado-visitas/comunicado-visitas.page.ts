@@ -15,10 +15,10 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Fechas
   fechaVisita: Date = new Date();  
-  fechaMin: String = new Date().toISOString().substring(0,10); // La fecha mínima es la fecha de hoy
+  fechaMin: string = new Date().toISOString().substring(0,10); // La fecha mínima es la fecha de hoy
   hoyMes: number = new Date().getMonth();  
   sigAnio: number = new Date().getFullYear()+1;
-  fechaMax: String = new Date(this.sigAnio, this.hoyMes).toISOString().substr(0,10);
+  fechaMax: string = new Date(this.sigAnio, this.hoyMes).toISOString().substr(0,10);
 
   // Array de horas escogidas
   horas_elegidas: EleccionHorario[]=[    
@@ -104,9 +104,10 @@ export class ComunicadoVisitasPage implements OnInit {
   }
 
   // Enviar pulsado
+  /*
   enviarDatos(){
-    this.datosComunicado.usuario=
   }
+  */
 }
 
 // Interfaz de eleccion de horarios
