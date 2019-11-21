@@ -1,41 +1,57 @@
 {
-    "motivo": [
-      "FCT",
-      "Dual"
-    ],
-    "empresas": [
-      "AtSistemas",
-      "Befresh",
-      "Garpo",
-      "Ultimate",
-      "Sierranet",
-      "Gades",
-      "Asisur"
-    ],
-    "horas": {
-      "horario": [
-        "8:00-9:00",
-        "9:00-10:00",
-        "10:00-10:55",
-        "11:20-12:20",
-        "12:20-13:20",
-        "13:20-14:20"
-      ],
-      "inicio": [
-        "8:00",
-        "9:00",
-        "10:00",
-        "11:20",
-        "12:20",
-        "13:20"
-      ],
-      "fin": [
-        "9:00",
-        "10:00",
-        "10:55",
-        "12:20",
-        "13:20",
-        "14:20"
-      ]
+  "motivo": [ 
+    "FCT",
+    "Dual"
+  ],
+  "empresas": [
+    "AtSistemas",
+    "Befresh",
+    "Garpo",
+    "Ultimate",
+    "Sierranet",
+    "Gades",
+    "Asisur"
+  ],
+  "horas": [
+    {
+      "id": 1,
+      "hora": "08",
+      "minutos": "00"
+    },
+    {
+      "id": 2,
+      "hora": "09",
+      "minutos": "00"
+    },
+    {
+      "id": 3,
+      "hora": "10",
+      "minutos": "00"
+    },
+    {
+      "id": 4,
+      "hora": "10",
+      "minutos": "55"
+    },
+    {
+      "id": 5,
+      "hora": "11",
+      "minutos": "20"
+    },
+    {
+      "id": 6,
+      "hora": "12",
+      "minutos": "20"
+    },
+    {
+      "id": 7,
+      "hora": "13",
+      "minutos": "20"
+    },
+    {
+      "id": 8,
+      "hora": "14",
+      "minutos": "20"
     }
-  }
+  ]
+}

@@ -17,11 +17,16 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  OnSubmitLogin(){
+  OnSubmitLogin() {
     this.authService.login(this.email, this.password)
     .then(res => {
-      this.router.navigate(['/home']); 
-    })//fin then
+      // Una vez que el login sea correcto buscamos si es correspondiente a JEFATURA
+      if (this.email.includes('@jefatura.')) {
+        this.router.navigate(['/validado-visitas']);
+      } else {
+        this.router.navigate(['/home']);
+      }
+    })// fin then
     .catch(err => (alert('Email o password incorrectos.')) );
   }
 
