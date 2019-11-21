@@ -1,9 +1,50 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>documentoVisita</ion-title>
-  </ion-toolbar>
-</ion-header>
+<app-header titulo="Documento Visita"> </app-header>
 
 <ion-content>
+  <ion-list name="lista1">
+    <ion-item>
+      <ion-label>Fecha</ion-label>
+      <ion-datetime displayFormat ="DDDD MMM DD, YYYY" pickerFormat ="DD MMMM YYYY" min = "2019" max="2020" [(ngModel)]="event.month"></ion-datetime>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hora de Inicio</ion-label>
+      <ion-select interface="popover" placeholder="Selecciona una hora" [(ngModel)] ="horaInicio">
+        <ion-select-option *ngFor ="let final of horasIN">{{final.hora + ':' + final.minutos}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Hora de Finalización</ion-label>
+      <ion-select interface="popover"  placeholder="Selecciona una hora" [(ngModel)] ="horaFinal">
+        <ion-select-option *ngFor ="let final of horasOUT">{{final.hora + ':' + final.minutos}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Empresa</ion-label>
+      <ion-select #element placeholder="Selecciona una o dos empresas" multiple="true" [(ngModel)] ="empresasIN" (ionChange) ="onSelect($event)">
+        <ion-select-option *ngFor ="let emp of empresas">{{emp}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  
+  
+   
+  <ion-radio-group name="email">
+      <ion-list-header>
+          Enviar copia a:
+        </ion-list-header>
+    <ion-item>
+      <ion-label> Email propio</ion-label>
+      <ion-radio value="propio"></ion-radio>
+    </ion-item>
+    <ion-item>
+      <ion-label> Email Escuela - Empresa</ion-label>
+      <ion-radio value="escuela"></ion-radio>
+    </ion-item>
+    </ion-radio-group>
+
 
 </ion-content>
