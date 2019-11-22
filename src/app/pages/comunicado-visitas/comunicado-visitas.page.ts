@@ -31,6 +31,7 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "1",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     },    
     { // Hora 2
       inicio: "09:00",
@@ -38,6 +39,7 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "2",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     },    
     { // Hora 3
       inicio: "10:00",
@@ -45,6 +47,7 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "3",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     },    
     { // Hora 4
       inicio: "11:20",
@@ -52,6 +55,7 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "4",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     },    
     { // Hora 5
       inicio: "12:20",
@@ -59,6 +63,7 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "5",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     },    
     { // Hora 6
       inicio: "13:20",
@@ -66,12 +71,17 @@ export class ComunicadoVisitasPage implements OnInit {
       checkbox: "6",
       checkbox_seleccionado: false,
       radio_deshabilitado: true,
+      hay_clase: false,
     } 
   ];
   
   motivo: string;
   empresa1: string;
   empresa2: string;
+
+  datos: DatosComunicado[]=[];
+  horario: Horario[]=[];
+  
 
   constructor() {  }
 
@@ -87,42 +97,73 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Checkbox pulsado
   pulsadoCheckbox(hora){
-    console.log("Hora pulsada: " + hora.inicio +"-" + hora.fin)
     hora.radio_deshabilitado=!hora.radio_deshabilitado;
+  }
+
+  // Hay clases
+  hayClases(hora){
+    hora.hay_clase=!hora.hay_clase;
+    console.log("Hay clase: " + hora.inicio +"-" + hora.fin + " ->" +hora.hay_clase);
   }
 
   // Enviar pulsado
   
   enviarDatos(){
-    console.log(this.motivo 
-      + " \n" + this.fechaVisita.getDay() + "-"+ this.fechaVisita.getMonth() +"-"+ this.fechaVisita.getFullYear()
-      + " \n" + this.empresa1
-      + " \n" + this.empresa2);
+    // Guardamos los datos del horario del profesor en un array de Horario (almacena hora de inicio y fin de las clases, si realiza visita a esa hora y si tiene clase o no)
+    this.horas_elegidas.forEach(element => {
+      this.horario.push({
+        hora_inicio: element.inicio,
+        hora_fin: element.fin,
+        realiza_visita: element.checkbox_seleccionado,
+        tiene_clase: element.hay_clase,
+      });        
+    });
+      
+    this.horario.forEach(element => {
+      console.log("Hora:" + element.hora_inicio +"-"+ element.hora_fin+ ": "+ element.realiza_visita + " -> Clases: " + element.tiene_clase)
+    });
 
-      this.horas_elegidas.forEach(element => {
-        console.log("\nHora:" + element.inicio +"-"+ element.fin+ ": "+ element.checkbox_seleccionado + " -> Clases: " + element.checkbox_seleccionado.valueOf())
-      });
-
-      //Lógica del método
-      if (this.motivo==null || this.fechaVisita==null || this.empresa1==null){
-        //algo pasa
-        console.log("Error. Motivo, o fecha o empresa1 son nulas")
-      }else{
-        // comprobar si empresa2 es nula. Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
-        if(this.empresa2!=null){
-          if (this.empresa1==this.empresa2){
-            console.log("Empresa 1 y empresa 2 no pueden ser iguales")
-          }else{
-            //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
-            console.log("Todo perfecto.")
-          }
+    //Lógica del método
+    if (this.motivo!=null && this.fechaVisita!=null && this.empresa1!=null){
+      if(this.empresa2!=null){ // comprobar si empresa2 es nula. 
+          
+        if (this.empresa1==this.empresa2){ //Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
+          console.log("Empresa 1 y empresa 2 no pueden ser iguales")
+          
         }else{
           //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
+          // Se crean dos objetos para guardarlo en DatosComunicado, uno por cada empresa
           console.log("Todo perfecto.")
-        }
+            
+          this.datos.push({ //Comunicación de visita de empresa 1
+            motivo: this.motivo,
+            fecha: this.fechaVisita.toISOString().substring(0,10),
+            horario: this.horario,
+            empresa: this.empresa1,            
+          });
+            
+          this.datos.push({ //Comunicación de visita de empresa 2
+            motivo: this.motivo,
+            fecha: this.fechaVisita.toISOString().substring(0,10),
+            horario: this.horario,
+            empresa: this.empresa2,
+          });            
+        }  
+          
 
+      }else{
+        //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas. 
+        // Solo se crea un objeto para guardarlo en DatosComunicado
+        console.log("Todo perfecto.")
+        this.datos.push({  // Comunicación de visita de la única empresa que se va a
+          motivo: this.motivo,
+          fecha: this.fechaVisita.toISOString().substring(0,10),
+          horario: this.horario,
+          empresa: this.empresa1,            
+        });
       }
-  }
+    } // fin condiciones
+  }// fin metodo enviar datos
 
 
 

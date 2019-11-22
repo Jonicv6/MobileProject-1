@@ -59,14 +59,16 @@
                     <!--Sí-->
                     <ion-col>
                       <ion-radio [value]="si" 
-                                 [disabled]="h.radio_deshabilitado">
+                                 [disabled]="h.radio_deshabilitado"
+                                 (ionSelect)="hayClases(h)">
                       </ion-radio>
                       <ion-label>Sí</ion-label>
                     </ion-col>
                     <!--No-->       
                     <ion-col>
                         <ion-radio [value]="no"
-                                   [disabled]="h.radio_deshabilitado" 
+                                   [disabled]="h.radio_deshabilitado"
+                                   (ionSelect)="hayClases(h)" 
                                    checked>
                         </ion-radio>
                         <ion-label>No</ion-label>
