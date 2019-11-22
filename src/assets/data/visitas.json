@@ -1,0 +1,91 @@
+{
+    "visitas":[
+        {
+            "id": 1,
+            "motivo": "FTC",
+            "fecha": "05-12-2019",
+            "horario": [
+                {
+                    "hora_inicio":"08:00",
+                    "hora_fin":"09:00",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"09:00",
+                    "hora_fin":"10:00",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"10:00",
+                    "hora_fin":"10:55",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"11:20",
+                    "hora_fin":"12:20",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"12:20",
+                    "hora_fin":"13:20",
+                    "realiza_visita":true,
+                    "tiene_clase":true
+                },
+                {
+                    "hora_inicio":"13:20",
+                    "hora_fin":"14:20",
+                    "realiza_visita":false,
+                    "tiene_clase":false
+                }
+            ],
+            "empresa": "AtSistemas"
+        },{
+            "id": 2,
+            "motivo": "FTC",
+            "fecha": "05-12-2019",
+            "horario": [
+                {
+                    "hora_inicio":"08:00",
+                    "hora_fin":"09:00",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"09:00",
+                    "hora_fin":"10:00",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"10:00",
+                    "hora_fin":"10:55",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"11:20",
+                    "hora_fin":"12:20",
+                    "realiza_visita":true,
+                    "tiene_clase":false
+                },
+                {
+                    "hora_inicio":"12:20",
+                    "hora_fin":"13:20",
+                    "realiza_visita":true,
+                    "tiene_clase":true
+                },
+                {
+                    "hora_inicio":"13:20",
+                    "hora_fin":"14:20",
+                    "realiza_visita":false,
+                    "tiene_clase":false
+                }
+            ],
+            "empresa": "Befresh"
+        }
+    ]
+}
