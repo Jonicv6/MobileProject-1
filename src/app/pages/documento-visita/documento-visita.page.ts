@@ -15,8 +15,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class DocumentoVisitaPage implements OnInit {
   num: any;
 
-  constructor(public navCtrl: NavController,
-              public emailcomposer: EmailComposer) {
+  constructor(public navCtrl: NavController) {
                 this.read_data();
                 this.read_visita();
                }
