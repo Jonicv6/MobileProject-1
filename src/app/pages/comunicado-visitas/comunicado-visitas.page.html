@@ -2,94 +2,104 @@
 <app-header titulo="Comunicado visita"></app-header>
 
 <ion-content>
-  
-  <!-- Motivo -->
-  <ion-item>
-    <ion-label>Motivo:</ion-label>
-    <ion-select interface="popover" 
-                [ngModel]="seleccionado"
-                (ionchange)="cambioMotivo(seleccionado)">
-      <ion-select-option *ngFor="let motivo of motivos; index as i" [value]="motivo" selected=true>{{motivo}}</ion-select-option>      
-    </ion-select>
-  </ion-item>
 
-  <!-- Fecha -->    
-  <ion-item>
-    <ion-label>Fecha:</ion-label>
-    <ion-datetime placeholder="Fecha de visita"
-                  value="{{ fechaVisita | date: 'dd-MM-yyyy'}}"
-                  display-format="DD MMMM YYYY"
-                  cancelText="Cancelar"
-                  [min]="fechaMin"
-                  [max]="fechaMax"
-                  [(ngModel)]="fechaVisita.toISOString"
-                  (ionChange)=cambioFecha($event)                  
-    ></ion-datetime>
-  </ion-item>
-  
-  <!-- Horarios -->
-  <ion-grid>
-    <ion-row>
-      <ion-col>
-        <ion-label>Hora</ion-label>
-      </ion-col>
-      <ion-col>
-        <ion-label>Clase</ion-label>
-      </ion-col>
-    </ion-row>
+    <!-- Motivo -->
+    <ion-item>
+      <ion-label>Motivo:</ion-label>
+      <ion-select interface="popover" 
+                  [(ngModel)]="motivo">
+        <ion-select-option *ngFor="let m of motivos"
+                           [value]=m                            
+                           selected=true>{{m}}</ion-select-option>      
+      </ion-select>
+    </ion-item>
 
-    <ion-row *ngFor="let hora of horas_elegidas">
-      <!-- Horas -->
-      <ion-col> 
-          <ion-checkbox [value]="hora.checkbox" (click)="pulsadoCheckbox(hora)"></ion-checkbox>
-          <ion-label>{{hora.inicio}}-{{hora.fin}}</ion-label>
-        </ion-col>
-        
-        <!-- Eleccion del usuario --> 
-        <ion-col> 
-          <ion-radio-group>
-            <ion-row>
-              <!--Grupo de rabio buttons-->
+    <!-- Fecha -->    
+    <ion-item>
+      <ion-label>Fecha:</ion-label>
+      <ion-datetime placeholder="Fecha de visita"
+                    value="{{ fechaVisita | date: 'dd-MM-yyyy'}}"
+                    display-format="DD MMMM YYYY"
+                    cancelText="Cancelar"
+                    [min]="fechaMin"
+                    [max]="fechaMax"
+                    [(ngModel)]="fechaVisita.toISOString"
+                    (ionChange)=cambioFecha($event)                  
+      ></ion-datetime>
+    </ion-item>
+    
+    <!-- Horarios -->
+    <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-label>Hora</ion-label>
+          </ion-col>
+          <ion-col>
+            <ion-label>Clase</ion-label>
+          </ion-col>
+        </ion-row>
+  
+        <ion-row *ngFor="let h of horas_elegidas">
+          <!-- Horas -->
+          <ion-col> 
+              <ion-checkbox [(ngModel)]="h.checkbox_seleccionado"
+                            (click)="pulsadoCheckbox(h)"
+                            [value]="h.checkbox"
+                            [checked]="h.checkbox_seleccionado"
+              ></ion-checkbox>
+              <ion-label>{{h.inicio}}-{{h.fin}}</ion-label>
+            </ion-col>
+            
+            <!-- Eleccion del usuario --> 
+            <ion-col> 
               <ion-radio-group>
-                <!--Sí-->
-                <ion-col>
-                  <ion-radio [value]="hora.radio_si" [disabled]="hora.radio_deshabilitado"></ion-radio>
-                  <ion-label>Sí</ion-label>
-                </ion-col>
-                <!--No-->       
-                <ion-col>
-                    <ion-radio [value]="hora.radio_no" [disabled]="hora.radio_deshabilitado" checked></ion-radio>
-                    <ion-label>No</ion-label>
-                </ion-col>
+                <ion-row>
+                  <!--Grupo de rabio buttons-->
+                  <ion-radio-group >
+                    <!--Sí-->
+                    <ion-col>
+                      <ion-radio [value]="si" 
+                                 [disabled]="h.radio_deshabilitado">
+                      </ion-radio>
+                      <ion-label>Sí</ion-label>
+                    </ion-col>
+                    <!--No-->       
+                    <ion-col>
+                        <ion-radio [value]="no"
+                                   [disabled]="h.radio_deshabilitado" 
+                                   checked>
+                        </ion-radio>
+                        <ion-label>No</ion-label>
+                    </ion-col>
+                  </ion-radio-group>
+                </ion-row>
               </ion-radio-group>
-            </ion-row>
-          </ion-radio-group>
-        </ion-col>  
-      
-    </ion-row>
+            </ion-col>  
+          
+        </ion-row>
+  
+      </ion-grid>
+      <!--Fin Horarios-->
 
-  </ion-grid>
-  <!--Fin Horarios-->
+    <!-- Empresas -->
+    <ion-item>
+      <ion-label>Empresa 1:</ion-label>
+      <ion-select interface="popover" 
+                  [(ngModel)]="empresa1">
+        <ion-select-option *ngFor="let e of empresas" [value]="e">
+          {{e}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <!-- Empresas -->
-  <ion-item>
-    <ion-label>Empresa 1:</ion-label>
-    <ion-select interface="popover" 
-                [ngModel]="seleccionado"
-                (ionchange)="cambioMotivo(seleccionado)">
-      <ion-select-option *ngFor="let empresa of empresas" [value]="empresa">{{empresa}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+    <ion-item>
+      <ion-label>Empresa 2:</ion-label>
+      <ion-select interface="popover" 
+                  [(ngModel)]="empresa2">
+        <ion-select-option *ngFor="let e of empresas" [value]="e">{{e}}</ion-select-option>
+      </ion-select>
+    </ion-item>
 
-  <ion-item>
-    <ion-label>Empresa 2:</ion-label>
-    <ion-select interface="popover" 
-                [ngModel]="seleccionado"
-                (ionchange)="cambioMotivo(seleccionado)">
-      <ion-select-option *ngFor="let empresa of empresas" [value]="empresa">{{empresa}}</ion-select-option>
-    </ion-select>
-  </ion-item>
-
-  <ion-button expand="block" (click)="enviarDatos()">Enviar</ion-button>
+    <ion-button expand="block" (click)="enviarDatos()">Enviar</ion-button>
 
 </ion-content>

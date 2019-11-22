@@ -14,6 +14,7 @@ import { firebaseConfig } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ComponentsModule } from './components/components.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,7 +25,8 @@ import { ComponentsModule } from './components/components.module';
     AppRoutingModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
-    ComponentsModule
+    ComponentsModule,
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,
