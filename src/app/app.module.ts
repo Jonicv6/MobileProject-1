@@ -14,7 +14,7 @@ import { firebaseConfig } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { ComponentsModule } from './components/components.module';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,12 +26,11 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     ComponentsModule,
-    HttpClientModule
+    ReactiveFormsModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    EmailComposer,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -99,4 +99,7 @@ export class DocumentoVisitaPage implements OnInit {
 
   }
 
+  enviarDatos(){
+    console.log("Pulsado enviar")
+  }
 }

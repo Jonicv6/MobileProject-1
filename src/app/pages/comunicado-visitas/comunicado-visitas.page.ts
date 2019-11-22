@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { EleccionHorario, DatosComunicado, Horario } from 'src/interfaces/data.interfaces';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
+
 
 @Component({
   selector: 'app-comunicado-visitas',
@@ -26,70 +30,65 @@ export class ComunicadoVisitasPage implements OnInit {
       inicio: "08:00",
       fin: "09:00",
       checkbox: "1",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S1",
-      radio_no: "N1"
+      hay_clase: false,
     },    
     { // Hora 2
       inicio: "09:00",
       fin: "10:00",
       checkbox: "2",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S2",
-      radio_no: "N2"
+      hay_clase: false,
     },    
     { // Hora 3
       inicio: "10:00",
       fin: "11:00",
       checkbox: "3",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S3",
-      radio_no: "N3"
+      hay_clase: false,
     },    
     { // Hora 4
       inicio: "11:20",
       fin: "12:20",
       checkbox: "4",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S4",
-      radio_no: "N4"
+      hay_clase: false,
     },    
     { // Hora 5
       inicio: "12:20",
       fin: "13:20",
       checkbox: "5",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S5",
-      radio_no: "N5"
+      hay_clase: false,
     },    
     { // Hora 6
       inicio: "13:20",
       fin: "14:20",
       checkbox: "6",
+      checkbox_seleccionado: false,
       radio_deshabilitado: true,
-      radio_si: "S6",
-      radio_no: "N6"
+      hay_clase: false,
     } 
   ];
+  
+  motivo: string;
+  empresa1: string;
+  empresa2: string;
 
-  datosComunicado: DatosComunicado = {
-    usuario: "",
-    motivo: "",
-    fecha: "",
-    horario: [],
-    empresa1: "",
-    empresa2: ""
-  };
+  datos: DatosComunicado[]=[];
+  horario: Horario[]=[];
+  
 
-  constructor() { }
+  constructor() {  }
 
   ngOnInit() {
   }
 
-  //Motivo
-  cambioMotivo(seleccionado){
-    console.log('Motivo seleccionado: ', seleccionado);
-  }
 
   // Fecha
   cambioFecha(event){
@@ -99,33 +98,93 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Checkbox pulsado
   pulsadoCheckbox(hora){
-    //console.log("Hora pulsada: " + hora.inicio +"-" + hora.fin)
     hora.radio_deshabilitado=!hora.radio_deshabilitado;
   }
 
-  // Enviar pulsado
-  /*
-  enviarDatos(){
+  // Hay clases
+  hayClases(hora){
+    hora.hay_clase=!hora.hay_clase;
+    console.log("Hay clase: " + hora.inicio +"-" + hora.fin + " ->" +hora.hay_clase);
   }
-  */
+
+  // Enviar pulsado
+  
+  enviarDatos(){
+    // Guardamos los datos del horario del profesor en un array de Horario (almacena hora de inicio y fin de las clases, si realiza visita a esa hora y si tiene clase o no)
+    this.horas_elegidas.forEach(element => {
+      this.horario.push({
+        hora_inicio: element.inicio,
+        hora_fin: element.fin,
+        realiza_visita: element.checkbox_seleccionado,
+        tiene_clase: element.hay_clase,
+      });        
+    });
+      
+    // console.log("Fecha: " + this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear());
+
+    // this.horario.forEach(element => {
+    //   console.log("Hora:" + element.hora_inicio +"-"+ element.hora_fin+ ": "+ element.realiza_visita + " -> Clases: " + element.tiene_clase)
+    // });
+
+    //Lógica del método
+    if (this.motivo!=null && this.fechaVisita!=null && this.empresa1!=null){
+      if(this.empresa2!=null){ // comprobar si empresa2 es nula. 
+          
+        if (this.empresa1==this.empresa2){ //Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
+          console.log("Empresa 1 y empresa 2 no pueden ser iguales")
+          
+        }else{
+          //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
+          // Se crean dos objetos para guardarlo en DatosComunicado, uno por cada empresa
+          console.log("Todo perfecto.")
+            
+          this.datos.push({ //Comunicación de visita de empresa 1
+            id: -1, // cambiar id leyendo el último elemento del json
+            motivo: this.motivo,
+            fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
+            horario: this.horario,
+            empresa: this.empresa1,            
+          });
+            
+          this.datos.push({ //Comunicación de visita de empresa 2
+            id: -2, // cambiar id leyendo el último elemento del json
+            motivo: this.motivo,
+            fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
+            horario: this.horario,
+            empresa: this.empresa2,
+          });            
+        }  
+        
+        this.datos.forEach(element => {
+          console.log("ID: " + element.id 
+                   +"\nMotivo: " + element.motivo
+                   +"\nFecha: " +element.fecha
+                   +"\nEmpresa: " + element.empresa);
+        });
+
+      }else{
+        //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas. 
+        // Solo se crea un objeto para guardarlo en DatosComunicado
+        console.log("Todo perfecto.")
+        this.datos.push({  // Comunicación de visita de la única empresa que se va a
+          id: -1,
+          motivo: this.motivo,
+          fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
+          horario: this.horario,
+          empresa: this.empresa1,            
+        });
+
+        this.datos.forEach(element => {
+          console.log("ID: " + element.id 
+                   +"\nMotivo: " + element.motivo
+                   +"\nFecha: " +element.fecha
+                   +"\nEmpresa: " + element.empresa);
+        });
+      }
+    } // fin condiciones
+  }// fin metodo enviar datos
+
+
+
 }
 
-// Interfaz de eleccion de horarios
-interface EleccionHorario{
-  inicio: string;
-  fin: string;
-  checkbox: string;
-  radio_deshabilitado: boolean;
-  radio_si: string;
-  radio_no: string;
-}
-
-// Interfaz para almacenar los datos del comunicado
-interface DatosComunicado{
-  usuario: string;
-  motivo: string;
-  fecha: string;
-  horario: string[];
-  empresa1: string;
-  empresa2: string;
-}
