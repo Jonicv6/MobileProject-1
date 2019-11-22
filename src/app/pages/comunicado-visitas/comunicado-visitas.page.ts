@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EleccionHorario, DatosComunicado, Horario } from 'src/interfaces/data.interfaces';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
 
 
 @Component({
@@ -119,9 +120,11 @@ export class ComunicadoVisitasPage implements OnInit {
       });        
     });
       
-    this.horario.forEach(element => {
-      console.log("Hora:" + element.hora_inicio +"-"+ element.hora_fin+ ": "+ element.realiza_visita + " -> Clases: " + element.tiene_clase)
-    });
+    // console.log("Fecha: " + this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear());
+
+    // this.horario.forEach(element => {
+    //   console.log("Hora:" + element.hora_inicio +"-"+ element.hora_fin+ ": "+ element.realiza_visita + " -> Clases: " + element.tiene_clase)
+    // });
 
     //Lógica del método
     if (this.motivo!=null && this.fechaVisita!=null && this.empresa1!=null){
@@ -136,30 +139,46 @@ export class ComunicadoVisitasPage implements OnInit {
           console.log("Todo perfecto.")
             
           this.datos.push({ //Comunicación de visita de empresa 1
+            id: -1, // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
-            fecha: this.fechaVisita.toISOString().substring(0,10),
+            fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
             horario: this.horario,
             empresa: this.empresa1,            
           });
             
           this.datos.push({ //Comunicación de visita de empresa 2
+            id: -2, // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
-            fecha: this.fechaVisita.toISOString().substring(0,10),
+            fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
             horario: this.horario,
             empresa: this.empresa2,
           });            
         }  
-          
+        
+        this.datos.forEach(element => {
+          console.log("ID: " + element.id 
+                   +"\nMotivo: " + element.motivo
+                   +"\nFecha: " +element.fecha
+                   +"\nEmpresa: " + element.empresa);
+        });
 
       }else{
         //se toman los datos, se escriben en el json y nos redirigimos a la página de visitas. 
         // Solo se crea un objeto para guardarlo en DatosComunicado
         console.log("Todo perfecto.")
         this.datos.push({  // Comunicación de visita de la única empresa que se va a
+          id: -1,
           motivo: this.motivo,
-          fecha: this.fechaVisita.toISOString().substring(0,10),
+          fecha: this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear(),
           horario: this.horario,
           empresa: this.empresa1,            
+        });
+
+        this.datos.forEach(element => {
+          console.log("ID: " + element.id 
+                   +"\nMotivo: " + element.motivo
+                   +"\nFecha: " +element.fecha
+                   +"\nEmpresa: " + element.empresa);
         });
       }
     } // fin condiciones
