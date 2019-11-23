@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController, NavController } from '@ionic/angular';
 import { IHoras, DatosComunicado, Horario } from '../../../interfaces/data.interfaces';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-listado-visitas',
@@ -21,7 +22,12 @@ export class ListadoVisitasPage implements OnInit {
 
   setParamsSend(visita: DatosComunicado) {
 
-    // this.navCtrl.navigateForward('/documento-visita', visita.id.toString());
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+          currency: JSON.stringify(visita)
+      }
+    };
+    this.navCtrl.navigateForward(['documento-visita'], navigationExtras);
   }
 
   ngOnInit() {
@@ -86,9 +92,6 @@ export class ListadoVisitasPage implements OnInit {
           validado: element['validado']
 
         });
-
-        // Volvemos a inicializar los valores de Horas
-
 
         console.log(this.lista);
       });

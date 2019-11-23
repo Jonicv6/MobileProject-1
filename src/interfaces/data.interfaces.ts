@@ -41,3 +41,13 @@ export interface Horario {
   asignatura: string;
   aula: string;
 }
+
+// Interfaz para almacenar los datos del DocumentoVisita
+export interface Documento {
+  id: number;
+  fecha: string;
+  hora_inicio: string;
+  hora_fin: string;
+  empresa: string;
+  email: string;
+}
