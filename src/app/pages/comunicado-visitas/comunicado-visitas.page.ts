@@ -86,7 +86,7 @@ export class ComunicadoVisitasPage implements OnInit {
       cual_asignatura: '',
       cual_aula: ''
     }
-  ];
+  ]; // fin de array de horas escogidas
 
   motivo: string;
   empresa1: string;
@@ -118,13 +118,12 @@ export class ComunicadoVisitasPage implements OnInit {
   // Hay clases
   hayClases(hora) {
     hora.hay_clase = !hora.hay_clase;
-    console.log('Hay clase: ' + hora.inicio + '-' + hora.fin + ' ->' + hora.hay_clase);
+   // console.log('Hay clase: ' + hora.inicio + '-' + hora.fin + ' ->' + hora.hay_clase);
   }
 
-  // Enviar pulsado
-
+  // Enviar los datos rellenados en el formulario.
   enviarDatos() {
-    var contador_visita=0;
+    var contador_visita=0; // Contamos si el usuario ha pulsado al menos una hora de visita.
     this.horas_elegidas.forEach(element=>{
       if (element.checkbox_seleccionado){
         contador_visita=contador_visita+1;
@@ -139,8 +138,7 @@ export class ComunicadoVisitasPage implements OnInit {
           // console.log("Empresa 1 y empresa 2 no pueden ser iguales")
           presentToast('Empresa 1 y Empresa 2 no pueden ser iguales');
 
-        } else {          
-          // se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
+        } else {
           // Se crean dos objetos para guardarlo en DatosComunicado, uno por cada empresa
           presentToast('Todo perfecto.');
 
@@ -176,12 +174,12 @@ export class ComunicadoVisitasPage implements OnInit {
           });
         }
 
-        this.datos.forEach(element => {
-          console.log('ID: ' + element.id
-                   + '\nMotivo: ' + element.motivo
-                   + '\nFecha: ' + element.fecha
-                   + '\nEmpresa: ' + element.empresa);
-        });
+        // this.datos.forEach(element => {
+        //   console.log('ID: ' + element.id
+        //            + '\nMotivo: ' + element.motivo
+        //            + '\nFecha: ' + element.fecha
+        //            + '\nEmpresa: ' + element.empresa);
+        // });
 
       } else {
         // Guardamos los datos del horario del profesor en un array de Horario 
@@ -208,12 +206,12 @@ export class ComunicadoVisitasPage implements OnInit {
           validado: false
         });
 
-        this.datos.forEach(element => {
-          console.log('ID: ' + element.id
-                   + '\nMotivo: ' + element.motivo
-                   + '\nFecha: ' + element.fecha
-                   + '\nEmpresa: ' + element.empresa);
-        });
+        // this.datos.forEach(element => {
+        //   console.log('ID: ' + element.id
+        //            + '\nMotivo: ' + element.motivo
+        //            + '\nFecha: ' + element.fecha
+        //            + '\nEmpresa: ' + element.empresa);
+        // });
         
         // se toman los datos, se escriben en el json 
       }
@@ -225,7 +223,7 @@ export class ComunicadoVisitasPage implements OnInit {
   }// fin metodo enviar datos
 
 
-
+  // Alert para modificar la asignatura.
   async modificarAsignatura(hora) {
     if (!hora.hay_clase) {
       const alert = await this.alertCtrl.create({
@@ -269,6 +267,7 @@ export class ComunicadoVisitasPage implements OnInit {
     }
   }
 
+  // Alert para modificar el aula.
   async modificarAula(hora) {
     if (!hora.hay_clase) {
       const alert = await this.alertCtrl.create({
