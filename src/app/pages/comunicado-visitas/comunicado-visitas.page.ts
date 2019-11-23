@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EleccionHorario, DatosComunicado, Horario } from 'src/interfaces/data.interfaces';
 import { AlertController } from '@ionic/angular';
+import { File } from '@ionic-native/file/ngx';
 
 
 @Component({
@@ -97,7 +98,7 @@ export class ComunicadoVisitasPage implements OnInit {
   
   last_id: number;
 
-  constructor(private alertCtrl: AlertController) { 
+  constructor(private alertCtrl: AlertController, private file: File) { 
     this.read_visita();
    }
 
@@ -106,12 +107,6 @@ export class ComunicadoVisitasPage implements OnInit {
   }
 
 
-  // Fecha
-  cambioFecha(event) {
-   // console.log("Cambio fecha: ", event.detail.value)
-   // console.log('fechaMin: ', this.fechaMin)
-  }
-
   // Checkbox pulsado
   pulsadoCheckbox(hora) {
     hora.boton_deshabilitado = !hora.boton_deshabilitado;
@@ -119,13 +114,12 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Hay clases
   hayClases(hora) {
-    hora.hay_clase = !hora.hay_clase;
+    hora.hay_clase = !hora.hay_clase;    
    // console.log('Hay clase: ' + hora.inicio + '-' + hora.fin + ' ->' + hora.hay_clase);
   }
 
   // Enviar los datos rellenados en el formulario.
   enviarDatos() {
-    //console.log("Lista_id en enviardatos: " + this.last_id);
     var contador_visita=0; // Contamos si el usuario ha pulsado al menos una hora de visita.
     this.horas_elegidas.forEach(element=>{
       if (element.checkbox_seleccionado){
@@ -175,14 +169,16 @@ export class ComunicadoVisitasPage implements OnInit {
             empresa: this.empresa2,
             validado: false
           });
+
+         
         }
 
-        // this.datos.forEach(element => {
-        //   console.log('ID: ' + element.id
-        //            + '\nMotivo: ' + element.motivo
-        //            + '\nFecha: ' + element.fecha
-        //            + '\nEmpresa: ' + element.empresa);
-        // });
+         this.datos.forEach(element => {
+           console.log('ID: ' + element.id
+                    + '\nMotivo: ' + element.motivo
+                   + '\nFecha: ' + element.fecha
+                   + '\nEmpresa: ' + element.empresa);
+         });
 
       } else {
         // Guardamos los datos del horario del profesor en un array de Horario 
@@ -209,12 +205,12 @@ export class ComunicadoVisitasPage implements OnInit {
           validado: false
         });
 
-        // this.datos.forEach(element => {
-        //   console.log('ID: ' + element.id
-        //            + '\nMotivo: ' + element.motivo
-        //            + '\nFecha: ' + element.fecha
-        //            + '\nEmpresa: ' + element.empresa);
-        // });
+         this.datos.forEach(element => {
+           console.log('ID: ' + element.id
+                    + '\nMotivo: ' + element.motivo
+                    + '\nFecha: ' + element.fecha
+                    + '\nEmpresa: ' + element.empresa);
+         });
         
         // se toman los datos, se escriben en el json 
       }
@@ -336,10 +332,10 @@ export class ComunicadoVisitasPage implements OnInit {
   }
 
 
-
 }
 
-
+  
+ 
 
 async function presentToast(message) {
   const toast = document.createElement('ion-toast');
