@@ -256,8 +256,10 @@ export class ComunicadoVisitasPage implements OnInit {
         {
           text: 'OK',
           handler: (dato) => {
-            hora.cual_asignatura = dato.asign;
-            presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase de ' + hora.cual_asignatura);
+            if (dato.asign!==""){
+              hora.cual_asignatura = dato.asign;
+              presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase de ' + hora.cual_asignatura);
+            }else{ presentToast('No has introducido la asignatura.'); }
           }
         }
       ]
@@ -297,8 +299,10 @@ export class ComunicadoVisitasPage implements OnInit {
         {
           text: 'OK',
           handler: (dato) => {
-            hora.cual_aula = dato.aul;
-            presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase en el aula ' + hora.cual_aula);
+            if (dato.aula!==""){
+              hora.cual_aula = dato.aula;
+              presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase en el aula ' + hora.cual_aula);
+            }else{ presentToast('No has introducido el aula.'); }
           }
         }
       ]
