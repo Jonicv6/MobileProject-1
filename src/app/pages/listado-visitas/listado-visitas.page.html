@@ -24,31 +24,30 @@
 
 <ion-content >
     <ion-list>
-      <ion-item *ngFor="let d of [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]" routerlink="/home" 
+      <ion-item *ngFor="let v of  lista"  (click)="setParamsSend(v)"
       detail style="border-bottom: groove; text-align: center;" class="ion-no-padding" >
         <ion-row style="width: 100%">
           <ion-col>
-            <ion-label>10/11/2019</ion-label>
+            <ion-label>{{v.fecha}}</ion-label>
           </ion-col>
           
           <ion-col>
             <ion-row>
-              <ion-col>
-               09:00
+              <ion-col >
+               {{v.horario.hora_inicio}}
               </ion-col>
-              <ion-col>
-                13:20
+              <ion-col >
+               {{v.horario.hora_fin}}
               </ion-col>
             </ion-row>
           </ion-col>
 
-          <ion-col>
-            pepito de los palotes empresa SL
+          <ion-col>{{v.empresa}}
           </ion-col>
 
           <ion-col >
               <ion-checkbox style="margin:0; margin-inline-start: 50%;" color="primary"
-              [(ngModel)]="binding"></ion-checkbox>
+              [(ngModel)]="v.validado" id="{{v.id}}" readonly></ion-checkbox>
           </ion-col>
         </ion-row>
       </ion-item>

@@ -22,11 +22,12 @@ export interface EleccionHorario{
 
 // Interfaz para almacenar los datos del comunicado
 export interface DatosComunicado{
-  id: number;
-  motivo: string;
-  fecha: string;
-  horario: Horario[];
-  empresa: string;
+  id?: number;
+  motivo?: string;
+  fecha?: string;
+  horario?: Horario[];
+  empresa?: string;
+  validado?: boolean;
 }
 
 // Interfaz para almacenar el horario del profesor

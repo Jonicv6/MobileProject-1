@@ -7,6 +7,7 @@ const routes: Routes = [
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule' },
   { path: 'listado-visitas', loadChildren: './pages/listado-visitas/listado-visitas.module#ListadoVisitasPageModule' },
   { path: 'comunicado-visitas', loadChildren: './pages/comunicado-visitas/comunicado-visitas.module#ComunicadoVisitasPageModule' },
+  { path: 'comunicado-visitas:id', loadChildren: './pages/comunicado-visitas/comunicado-visitas.module#ComunicadoVisitasPageModule' },
   { path: 'documento-visita', loadChildren: './pages/documento-visita/documento-visita.module#DocumentoVisitaPageModule' },
   { path: 'validado-visitas', loadChildren: './pages/validado-visitas/validado-visitas.module#ValidadoVisitasPageModule' }
 ];

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
 import { IHoras, Query } from '../../../interfaces/data.interfaces';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
 
 
 
@@ -15,8 +14,7 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class DocumentoVisitaPage implements OnInit {
   num: any;
 
-  constructor(public navCtrl: NavController,
-              public emailcomposer: EmailComposer) {
+  constructor(public navCtrl: NavController) {
                 this.read_data();
                 this.read_visita();
                }

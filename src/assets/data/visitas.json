@@ -8,7 +8,7 @@
                 {
                     "hora_inicio":"08:00",
                     "hora_fin":"09:00",
-                    "realiza_visita":true,
+                    "realiza_visita":false,
                     "tiene_clase":false
                 },
                 {
@@ -26,13 +26,13 @@
                 {
                     "hora_inicio":"11:20",
                     "hora_fin":"12:20",
-                    "realiza_visita":true,
+                    "realiza_visita":false,
                     "tiene_clase":false
                 },
                 {
                     "hora_inicio":"12:20",
                     "hora_fin":"13:20",
-                    "realiza_visita":true,
+                    "realiza_visita":false,
                     "tiene_clase":true
                 },
                 {
@@ -42,7 +42,8 @@
                     "tiene_clase":false
                 }
             ],
-            "empresa": "AtSistemas"
+            "empresa": "AtSistemas",
+            "validado": true
         },{
             "id": 2,
             "motivo": "FTC",
@@ -85,7 +86,8 @@
                     "tiene_clase":false
                 }
             ],
-            "empresa": "Befresh"
+            "empresa": "Befresh",
+            "validado": false
         }
     ]
 }

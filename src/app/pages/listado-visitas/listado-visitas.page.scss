@@ -1,3 +1,8 @@
 ion-item .item-native{
     padding: 0;
 }
+
+//Checkbox solo es leible.
+ion-checkbox[readonly] {
+    pointer-events: none;
+  }

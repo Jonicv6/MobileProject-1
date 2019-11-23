@@ -7,7 +7,6 @@ import { IonicModule } from '@ionic/angular';
 
 import { DocumentoVisitaPage } from './documento-visita.page';
 import { ComponentsModule } from '../../components/components.module';
-import { HttpClientModule } from '@angular/common/http';
 
 const routes: Routes = [
   {
@@ -22,8 +21,7 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ComponentsModule,
-    HttpClientModule
+    ComponentsModule
   ],
   declarations: [DocumentoVisitaPage]
 })
