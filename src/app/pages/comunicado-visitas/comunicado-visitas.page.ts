@@ -124,7 +124,6 @@ export class ComunicadoVisitasPage implements OnInit {
   // Enviar pulsado
 
   enviarDatos() {
-<<<<<<< HEAD
     var contador_visita=0;
     this.horas_elegidas.forEach(element=>{
       if (element.checkbox_seleccionado){
@@ -135,45 +134,16 @@ export class ComunicadoVisitasPage implements OnInit {
     // Se podrá proceder a crear un pdf si hay motivo, fecha, empresa1 y se ha marcado, al menos, una hora de visita
     if (this.motivo != null && this.fechaVisita != null && this.empresa1 != null && contador_visita>0) {
       if (this.empresa2 != null && this.empresa2 !== 'ninguna') { // comprobar si empresa2 es nula o vacía.
-=======
-    // tslint:disable-next-line: max-line-length
-    // Guardamos los datos del horario del profesor en un array de Horario (almacena hora de inicio y fin de las clases, si realiza visita a esa hora y si tiene clase o no)
-    this.horas_elegidas.forEach(element => {
-      this.horario.push({
-        hora_inicio: element.inicio,
-        hora_fin: element.fin,
-        realiza_visita: element.checkbox_seleccionado,
-        tiene_clase: element.hay_clase,
-        asignatura: element.cual_asignatura,
-        aula: element.cual_aula
-      });
-    });
-
-    // console.log("Fecha: " + this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear());
-
-    this.horario.forEach(element => {
-       console.log('Hora:' + element.hora_inicio + '-' + element.hora_fin + ': ' + element.realiza_visita + ' -> Clases: ' + element.tiene_clase + '| Asignatura: ' + element.asignatura + ' Aula: ' + element.aula);
-     });
-
-    // Lógica del método
-    if (this.motivo != null && this.fechaVisita != null && this.empresa1 != null) {
-      if (this.empresa2 != null && this.empresa2 !== 'ninguna') { // comprobar si empresa2 es nula.
->>>>>>> 112c2d1ca41858af2e08692a979fa58ffbc371d7
 
         if (this.empresa1 === this.empresa2) { // Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
           // console.log("Empresa 1 y empresa 2 no pueden ser iguales")
           presentToast('Empresa 1 y Empresa 2 no pueden ser iguales');
 
-<<<<<<< HEAD
         } else {          
-=======
-        } else {
->>>>>>> 112c2d1ca41858af2e08692a979fa58ffbc371d7
           // se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
           // Se crean dos objetos para guardarlo en DatosComunicado, uno por cada empresa
           presentToast('Todo perfecto.');
 
-<<<<<<< HEAD
           // Guardamos los datos del horario del profesor en un array de Horario 
           // (almacena hora de inicio y fin de las clases, si realiza visita a esa hora y si tiene clase o no)
           this.horas_elegidas.forEach(element => {
@@ -187,8 +157,6 @@ export class ComunicadoVisitasPage implements OnInit {
             });
           });
 
-=======
->>>>>>> 112c2d1ca41858af2e08692a979fa58ffbc371d7
           this.datos.push({ // Comunicación de visita de empresa 1
             id: -1, // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
@@ -216,7 +184,6 @@ export class ComunicadoVisitasPage implements OnInit {
         });
 
       } else {
-<<<<<<< HEAD
         // Guardamos los datos del horario del profesor en un array de Horario 
         // (almacena hora de inicio y fin de las clases, si realiza visita a esa hora y si tiene clase o no)
         this.horas_elegidas.forEach(element => {
@@ -230,9 +197,6 @@ export class ComunicadoVisitasPage implements OnInit {
           });
         });
         
-=======
-        // se toman los datos, se escriben en el json y nos redirigimos a la página de visitas.
->>>>>>> 112c2d1ca41858af2e08692a979fa58ffbc371d7
         // Solo se crea un objeto para guardarlo en DatosComunicado
         presentToast('Todo perfecto.');
         this.datos.push({  // Comunicación de visita de la única empresa que se va a
@@ -253,15 +217,10 @@ export class ComunicadoVisitasPage implements OnInit {
         
         // se toman los datos, se escriben en el json 
       }
-<<<<<<< HEAD
 
     } else { // fin condiciones      
       presentToast('Requisitos: Motivo, Fecha y Empresa 1 no pueden quedar vacíos. Debe seleccionar al menos una hora para realizar su visita.');
 
-=======
-    } else { // fin condiciones
-      presentToast('Motivo, Fecha y Empresa 1 no pueden quedar vacíos.');
->>>>>>> 112c2d1ca41858af2e08692a979fa58ffbc371d7
     }
   }// fin metodo enviar datos
 
