@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NavController, NavParams } from '@ionic/angular';
-import { IHoras, Query } from '../../../interfaces/data.interfaces';
-import { EmailComposer } from '@ionic-native/email-composer/ngx';
+import { IHoras, Query, DatosComunicado } from '../../../interfaces/data.interfaces';
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -15,12 +15,15 @@ import { EmailComposer } from '@ionic-native/email-composer/ngx';
 export class DocumentoVisitaPage implements OnInit {
   num: any;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public activeRoute: ActivatedRoute) {
                 this.read_data();
-                this.read_visita();
+                // this.read_visita();
                }
 
   @Input() empresasIN = [];
+
+ argumentos: DatosComunicado;
 
   motivo: string[];
   empresas: string[];
@@ -57,21 +60,21 @@ export class DocumentoVisitaPage implements OnInit {
   }
 
 
-  read_visita() {
-    fetch('./assets/data/visitas.json').then(res => res.json())
-    .then(json => {
-      // this.motivo = this.data['motivo'];
-      // tslint:disable-next-line: no-string-literal
+  // read_visita() {
+  //   fetch('./assets/data/visitas.json').then(res => res.json())
+  //   .then(json => {
+  //     // this.motivo = this.data['motivo'];
+  //     // tslint:disable-next-line: no-string-literal
 
-      // Guardamos el array de Visitas
-      this.visitas = json['visitas'];
+  //     // Guardamos el array de Visitas
+  //     this.visitas = json['visitas'];
 
-      this.visitas.forEach(element => {
-        console.log(element["id"]);
-      });
+  //     this.visitas.forEach(element => {
+  //       console.log(element['id']);
+  //     });
 
-    });
-  }
+  //   });
+  // }
 
 
 
@@ -95,10 +98,11 @@ export class DocumentoVisitaPage implements OnInit {
 
 
   ngOnInit() {
-
+    // this.argumentos = this.activeRoute.snapshot.paramMap.get(visita);
+    console.log('Documento - ' + this.argumentos);
   }
 
-  enviarDatos(){
-    console.log("Pulsado enviar")
+  enviarDatos() {
+    console.log('Pulsado enviar');
   }
 }
