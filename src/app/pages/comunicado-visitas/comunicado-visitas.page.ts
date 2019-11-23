@@ -94,10 +94,12 @@ export class ComunicadoVisitasPage implements OnInit {
 
   datos: DatosComunicado[] = [];
   horario: Horario[] = [];
+  
+  last_id: number;
 
-  argumentos = null;
-
-  constructor(private alertCtrl: AlertController) {  }
+  constructor(private alertCtrl: AlertController) { 
+    this.read_visita();
+   }
 
   ngOnInit() {
 
@@ -123,6 +125,7 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Enviar los datos rellenados en el formulario.
   enviarDatos() {
+    //console.log("Lista_id en enviardatos: " + this.last_id);
     var contador_visita=0; // Contamos si el usuario ha pulsado al menos una hora de visita.
     this.horas_elegidas.forEach(element=>{
       if (element.checkbox_seleccionado){
@@ -156,7 +159,7 @@ export class ComunicadoVisitasPage implements OnInit {
           });
 
           this.datos.push({ // Comunicación de visita de empresa 1
-            id: -1, // cambiar id leyendo el último elemento del json
+            id: (this.last_id+1), // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
             fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
             horario: this.horario,
@@ -165,7 +168,7 @@ export class ComunicadoVisitasPage implements OnInit {
           });
 
           this.datos.push({ // Comunicación de visita de empresa 2
-            id: -2, // cambiar id leyendo el último elemento del json
+            id: (this.last_id+2), // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
             fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
             horario: this.horario,
@@ -198,7 +201,7 @@ export class ComunicadoVisitasPage implements OnInit {
         // Solo se crea un objeto para guardarlo en DatosComunicado
         presentToast('Todo perfecto.');
         this.datos.push({  // Comunicación de visita de la única empresa que se va a
-          id: -1,
+          id: (this.last_id+1),
           motivo: this.motivo,
           fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
           horario: this.horario,
@@ -310,6 +313,29 @@ export class ComunicadoVisitasPage implements OnInit {
       await alert.present();
     }
   }
+
+  // Obtener el último id
+  read_visita() {
+    var lista_id: number[]=[]
+    fetch('./assets/data/visitas.json').then(res => res.json())
+    .then(json => {
+      
+
+      // Iteramos el array del Json 'Visitas'
+       json.visitas.forEach((element: DatosComunicado[]) => {
+      
+        lista_id.push(element['id']);
+
+        console.log(lista_id);
+        
+      });
+
+      this.last_id=lista_id[lista_id.length-1];
+      console.log("En read_visita: "+this.last_id)
+    });
+  }
+
+
 
 }
 
