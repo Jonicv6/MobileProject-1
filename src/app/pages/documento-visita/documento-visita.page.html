@@ -4,26 +4,26 @@
   <ion-list name="lista1">
     <ion-item>
       <ion-label>Fecha</ion-label>
-      <ion-datetime displayFormat ="DDDD MMM DD, YYYY" pickerFormat ="DD MMMM YYYY" min = "2019" max="2020" [(ngModel)]="event.month"></ion-datetime>
+      <ion-datetime displayFormat ="DDDD MMM DD, YYYY" pickerFormat ="DD MMMM YYYY" min = "2019" max="2020" [(ngModel)]="fecha"></ion-datetime>
     </ion-item>
 
     <ion-item>
       <ion-label>Hora de Inicio</ion-label>
       <ion-select interface="popover" placeholder="Selecciona una hora" [(ngModel)] ="horaInicio">
-        <ion-select-option *ngFor ="let final of horasIN">{{final.hora + ':' + final.minutos}}</ion-select-option>
+        <ion-select-option *ngFor ="let h of horasIN">{{h}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Hora de Finalización</ion-label>
       <ion-select interface="popover"  placeholder="Selecciona una hora" [(ngModel)] ="horaFinal">
-        <ion-select-option *ngFor ="let final of horasOUT">{{final.hora + ':' + final.minutos}}</ion-select-option>
+        <ion-select-option *ngFor ="let h of horasOUT">{{h}}</ion-select-option>
       </ion-select>
     </ion-item>
 
     <ion-item>
       <ion-label>Empresa</ion-label>
-      <ion-select #element placeholder="Selecciona una o dos empresas" multiple="true" [(ngModel)] ="empresasIN" (ionChange) ="onSelect($event)">
+      <ion-select #element placeholder="Selecciona una o dos empresas" [(ngModel)] ="empresa">
         <ion-select-option *ngFor ="let emp of empresas">{{emp}}</ion-select-option>
       </ion-select>
     </ion-item>
@@ -32,15 +32,15 @@
   
   
    
-  <ion-radio-group name="email">
+  <ion-radio-group name="email" >
       <ion-list-header>
           Enviar copia a:
         </ion-list-header>
-    <ion-item>
+    <ion-item (ionSelect)="radioGroupChange($event)" >
       <ion-label> Email propio</ion-label>
-      <ion-radio value="propio"></ion-radio>
+      <ion-radio value="propio" checked></ion-radio>
     </ion-item>
-    <ion-item>
+    <ion-item (ionSelect)="radioGroupChange($event)" >
       <ion-label> Email Escuela - Empresa</ion-label>
       <ion-radio value="escuela"></ion-radio>
     </ion-item>

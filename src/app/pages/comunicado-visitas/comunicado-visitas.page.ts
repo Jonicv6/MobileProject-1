@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { EleccionHorario, DatosComunicado, Horario } from 'src/interfaces/data.interfaces';
 import { AlertController } from '@ionic/angular';
-import { element } from 'protractor';
+
 
 @Component({
   selector: 'app-comunicado-visitas',
