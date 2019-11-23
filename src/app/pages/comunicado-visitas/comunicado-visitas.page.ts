@@ -1,9 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EleccionHorario, DatosComunicado, Horario } from 'src/interfaces/data.interfaces';
-import { FormGroup, FormBuilder } from '@angular/forms';
-import { ɵELEMENT_PROBE_PROVIDERS } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
-
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-comunicado-visitas',
@@ -32,48 +29,61 @@ export class ComunicadoVisitasPage implements OnInit {
       fin: '09:00',
       checkbox: '1',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
+
     },
     { // Hora 2
       inicio: '09:00',
       fin: '10:00',
       checkbox: '2',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
     },
     { // Hora 3
       inicio: '10:00',
       fin: '11:00',
       checkbox: '3',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
     },
     { // Hora 4
       inicio: '11:20',
       fin: '12:20',
       checkbox: '4',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
     },
     { // Hora 5
       inicio: '12:20',
       fin: '13:20',
       checkbox: '5',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
     },
     { // Hora 6
       inicio: '13:20',
       fin: '14:20',
       checkbox: '6',
       checkbox_seleccionado: false,
-      radio_deshabilitado: true,
+      boton_deshabilitado: true,
       hay_clase: false,
+      cual_asignatura: '',
+      cual_aula: ''
     }
   ];
 
@@ -86,23 +96,22 @@ export class ComunicadoVisitasPage implements OnInit {
 
   argumentos = null;
 
-  constructor(private activeRoute: ActivatedRoute) {  }
+  constructor(private alertCtrl: AlertController) {  }
 
   ngOnInit() {
-    this.argumentos = this.activeRoute.snapshot.paramMap.get('id');
-    console.log("Comunicado - "+this.argumentos);
+
   }
 
 
   // Fecha
   cambioFecha(event) {
-    console.log('Cambio fecha: ', event.detail.value);
-    console.log('fechaMin: ', this.fechaMin);
+   // console.log("Cambio fecha: ", event.detail.value)
+   // console.log('fechaMin: ', this.fechaMin)
   }
 
   // Checkbox pulsado
   pulsadoCheckbox(hora) {
-    hora.radio_deshabilitado = !hora.radio_deshabilitado;
+    hora.boton_deshabilitado = !hora.boton_deshabilitado;
   }
 
   // Hay clases
@@ -122,27 +131,29 @@ export class ComunicadoVisitasPage implements OnInit {
         hora_fin: element.fin,
         realiza_visita: element.checkbox_seleccionado,
         tiene_clase: element.hay_clase,
+        asignatura: element.cual_asignatura,
+        aula: element.cual_aula
       });
     });
 
     // console.log("Fecha: " + this.fechaVisita.getDay() + "-" +this.fechaVisita.getMonth() + "-" + this.fechaVisita.getFullYear());
 
-    // this.horario.forEach(element => {
-    // tslint:disable-next-line: max-line-length
-    //   console.log("Hora:" + element.hora_inicio +"-"+ element.hora_fin+ ": "+ element.realiza_visita + " -> Clases: " + element.tiene_clase)
-    // });
+    this.horario.forEach(element => {
+       console.log('Hora:' + element.hora_inicio + '-' + element.hora_fin + ': ' + element.realiza_visita + ' -> Clases: ' + element.tiene_clase + '| Asignatura: ' + element.asignatura + ' Aula: ' + element.aula);
+     });
 
     // Lógica del método
     if (this.motivo != null && this.fechaVisita != null && this.empresa1 != null) {
-      if (this.empresa2 != null) { // comprobar si empresa2 es nula.
+      if (this.empresa2 != null && this.empresa2 !== 'ninguna') { // comprobar si empresa2 es nula.
 
         if (this.empresa1 === this.empresa2) { // Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
-          console.log('Empresa 1 y empresa 2 no pueden ser iguales');
+          // console.log("Empresa 1 y empresa 2 no pueden ser iguales")
+          presentToast('Empresa 1 y Empresa 2 no pueden ser iguales');
 
         } else {
           // se toman los datos, se escriben en el json y nos redirigimos a la página de visitas
           // Se crean dos objetos para guardarlo en DatosComunicado, uno por cada empresa
-          console.log('Todo perfecto.');
+          presentToast('Todo perfecto.');
 
           this.datos.push({ // Comunicación de visita de empresa 1
             id: -1, // cambiar id leyendo el último elemento del json
@@ -173,7 +184,7 @@ export class ComunicadoVisitasPage implements OnInit {
       } else {
         // se toman los datos, se escriben en el json y nos redirigimos a la página de visitas.
         // Solo se crea un objeto para guardarlo en DatosComunicado
-        console.log('Todo perfecto.');
+        presentToast('Todo perfecto.');
         this.datos.push({  // Comunicación de visita de la única empresa que se va a
           id: -1,
           motivo: this.motivo,
@@ -190,10 +201,112 @@ export class ComunicadoVisitasPage implements OnInit {
                    + '\nEmpresa: ' + element.empresa);
         });
       }
-    } // fin condiciones
+    } else { // fin condiciones
+      presentToast('Motivo, Fecha y Empresa 1 no pueden quedar vacíos.');
+    }
   }// fin metodo enviar datos
 
 
 
+  async modificarAsignatura(hora) {
+    if (!hora.hay_clase) {
+      const alert = await this.alertCtrl.create({
+        header: 'Modificar asignatura',
+        subHeader: 'No hay clases en este tramo horario.',
+        message: 'No hay asignatura que modificar.',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    } else {
+      const alert = await this.alertCtrl.create({
+        header: 'Modificar asignatura',
+        subHeader: 'Clase: ' + hora.inicio + '-' + hora.fin,
+        inputs: [
+          {
+            name: 'asign',
+            type: 'text',
+            placeholder: 'Escribe una asignatura.'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => { presentToast('No has introducido la asignatura.'); }
+        },
+        {
+          text: 'OK',
+          handler: (dato) => {
+            hora.cual_asignatura = dato.asign;
+            presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase de ' + hora.cual_asignatura);
+          }
+        }
+      ]
+      });
+
+      await alert.present();
+    }
+  }
+
+  async modificarAula(hora) {
+    if (!hora.hay_clase) {
+      const alert = await this.alertCtrl.create({
+        header: 'Modificar aula',
+        subHeader: 'No hay clases en este tramo horario.',
+        message: 'No hay aula que modificar.',
+        buttons: ['OK']
+      });
+
+      await alert.present();
+    } else {
+      const alert = await this.alertCtrl.create({
+        header: 'Modificar aula',
+        subHeader: 'Aula',
+        inputs: [
+          {
+            name: 'aul',
+            type: 'text',
+            placeholder: 'Escribe el aula.'
+          }
+        ],
+        buttons: [
+          {
+            text: 'Cancelar',
+            role: 'cancel',
+            handler: () => { presentToast('No has introducido el aula.'); }
+        },
+        {
+          text: 'OK',
+          handler: (dato) => {
+            hora.cual_aula = dato.aul;
+            presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase en el aula ' + hora.cual_aula);
+          }
+        }
+      ]
+      });
+
+      await alert.present();
+    }
+  }
+
 }
 
+
+
+async function presentToast(message) {
+  const toast = document.createElement('ion-toast');
+  toast.message = message;
+  toast.duration = 4000;
+  toast.position = 'middle';
+  toast.color = 'dark';
+  toast.buttons = [
+    {
+      text: 'X',
+      role: 'cancel',
+    }
+  ];
+
+  document.body.appendChild(toast);
+  return toast.present();
+}

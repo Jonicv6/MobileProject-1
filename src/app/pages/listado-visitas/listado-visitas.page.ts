@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ToastController, NavController } from '@ionic/angular';
 import { IHoras, DatosComunicado, Horario } from '../../../interfaces/data.interfaces';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-listado-visitas',
@@ -15,13 +16,18 @@ export class ListadoVisitasPage implements OnInit {
 
 
   constructor(public toastController: ToastController,
-    private navCtrl: NavController) {
+              private navCtrl: NavController) {
       this.read_visita();
     }
 
-  setParamsSend(visita) {
+  setParamsSend(visita: DatosComunicado) {
 
-    this.navCtrl.navigateForward('/comunicado-visitas', visita);
+    const navigationExtras: NavigationExtras = {
+      queryParams: {
+          currency: JSON.stringify(visita)
+      }
+    };
+    this.navCtrl.navigateForward(['documento-visita'], navigationExtras);
   }
 
   ngOnInit() {
@@ -39,10 +45,10 @@ export class ListadoVisitasPage implements OnInit {
         // console.log('Dentro bucle DatosComunicado');
 
         // Variables temporales
-        var horaInicio = '';
-        var horaFin = '';
+        let horaInicio = '';
+        let horaFin = '';
         // Usamos esta variable para comprobar que las horas sean concurrentes
-        var continuar = true;
+        let continuar = true;
 
           // tslint:disable: no-string-literal
         element['horario'].forEach((subelement: Horario) => {
@@ -69,8 +75,10 @@ export class ListadoVisitasPage implements OnInit {
           hora_inicio: horaInicio,
           hora_fin: horaFin,
           realiza_visita: element['horario']['realiza_visita'],
-          tiene_clase: element['horario']['tiene_clase']
-          //Al actualizar la rama añadir los valores de asignatura y aula
+          tiene_clase: element['horario']['tiene_clase'],
+          asignatura: element['horario']['asignatura'],
+          aula: element['horario']['aula']
+          // Al actualizar la rama añadir los valores de asignatura y aula
         });
         console.log(this.horas);
 
@@ -82,10 +90,8 @@ export class ListadoVisitasPage implements OnInit {
           horario: this.horas,
           empresa: element['empresa'],
           validado: element['validado']
+
         });
-
-        // Volvemos a inicializar los valores de Horas
-
 
         console.log(this.lista);
       });
@@ -100,13 +106,3 @@ export class ListadoVisitasPage implements OnInit {
 
 
 }
-
-// Metodo para mostrar un mensaje corto
-
-// async presentToast() {
-//   const toast = await this.toastController.create({
-//     message: 'Your settings have been saved.',
-//     duration: 2000
-//   });
-//   toast.present();
-// }
