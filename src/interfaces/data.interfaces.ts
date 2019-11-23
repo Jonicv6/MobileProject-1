@@ -16,8 +16,10 @@ export interface EleccionHorario{
   fin: string;
   checkbox: string;
   checkbox_seleccionado: boolean,
-  radio_deshabilitado: boolean;
+  boton_deshabilitado: boolean;
   hay_clase: boolean;
+  cual_asignatura: string;
+  cual_aula: string;
 }
 
 // Interfaz para almacenar los datos del comunicado
@@ -27,6 +29,7 @@ export interface DatosComunicado{
   fecha: string;
   horario: Horario[];
   empresa: string;
+  validado: boolean;
 }
 
 // Interfaz para almacenar el horario del profesor
@@ -35,4 +38,6 @@ export interface Horario{
   hora_fin: string;
   realiza_visita: boolean;
   tiene_clase: boolean;
+  asignatura: string;
+  aula: string;
 }
