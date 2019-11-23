@@ -11,11 +11,11 @@ export interface IHoras {
  }
 
  // Interfaz de eleccion de horarios
-export interface EleccionHorario{
+export interface EleccionHorario {
   inicio: string;
   fin: string;
   checkbox: string;
-  checkbox_seleccionado: boolean,
+  checkbox_seleccionado: boolean;
   boton_deshabilitado: boolean;
   hay_clase: boolean;
   cual_asignatura: string;
@@ -23,7 +23,7 @@ export interface EleccionHorario{
 }
 
 // Interfaz para almacenar los datos del comunicado
-export interface DatosComunicado{
+export interface DatosComunicado {
   id: number;
   motivo: string;
   fecha: string;
@@ -33,7 +33,7 @@ export interface DatosComunicado{
 }
 
 // Interfaz para almacenar el horario del profesor
-export interface Horario{
+export interface Horario {
   hora_inicio: string;
   hora_fin: string;
   realiza_visita: boolean;
