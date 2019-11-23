@@ -95,12 +95,13 @@ export class ComunicadoVisitasPage implements OnInit {
   datos: DatosComunicado[] = [];
   horario: Horario[] = [];
 
+  last_id: number;
   argumentos = null;
 
   constructor(private alertCtrl: AlertController) {  }
 
   ngOnInit() {
-
+    this.read_visita();
   }
 
 
@@ -117,12 +118,14 @@ export class ComunicadoVisitasPage implements OnInit {
 
   // Hay clases
   hayClases(hora) {
-    hora.hay_clase = !hora.hay_clase;
-   // console.log('Hay clase: ' + hora.inicio + '-' + hora.fin + ' ->' + hora.hay_clase);
+    hora.hay_clase = !hora.hay_clase;   
   }
 
   // Enviar los datos rellenados en el formulario.
   enviarDatos() {
+    
+    console.log("ULTIMO ID: " + this.last_id);
+
     var contador_visita=0; // Contamos si el usuario ha pulsado al menos una hora de visita.
     this.horas_elegidas.forEach(element=>{
       if (element.checkbox_seleccionado){
@@ -134,8 +137,7 @@ export class ComunicadoVisitasPage implements OnInit {
     if (this.motivo != null && this.fechaVisita != null && this.empresa1 != null && contador_visita>0) {
       if (this.empresa2 != null && this.empresa2 !== 'ninguna') { // comprobar si empresa2 es nula o vacía.
 
-        if (this.empresa1 === this.empresa2) { // Si no lo es, comprobar que empresa 1 y 2 no sean iguales.
-          // console.log("Empresa 1 y empresa 2 no pueden ser iguales")
+        if (this.empresa1 === this.empresa2) { // Si no lo es, comprobar que empresa 1 y 2 no sean iguales.          
           presentToast('Empresa 1 y Empresa 2 no pueden ser iguales');
 
         } else {
@@ -156,7 +158,7 @@ export class ComunicadoVisitasPage implements OnInit {
           });
 
           this.datos.push({ // Comunicación de visita de empresa 1
-            id: -1, // cambiar id leyendo el último elemento del json
+            id: (this.last_id+1), // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
             fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
             horario: this.horario,
@@ -165,7 +167,7 @@ export class ComunicadoVisitasPage implements OnInit {
           });
 
           this.datos.push({ // Comunicación de visita de empresa 2
-            id: -2, // cambiar id leyendo el último elemento del json
+            id: (this.last_id+2), // cambiar id leyendo el último elemento del json
             motivo: this.motivo,
             fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
             horario: this.horario,
@@ -174,12 +176,12 @@ export class ComunicadoVisitasPage implements OnInit {
           });
         }
 
-        // this.datos.forEach(element => {
-        //   console.log('ID: ' + element.id
-        //            + '\nMotivo: ' + element.motivo
-        //            + '\nFecha: ' + element.fecha
-        //            + '\nEmpresa: ' + element.empresa);
-        // });
+         this.datos.forEach(element => {
+           console.log('ID: ' + element.id
+                    + '\nMotivo: ' + element.motivo
+                    + '\nFecha: ' + element.fecha
+                   + '\nEmpresa: ' + element.empresa);
+         });
 
       } else {
         // Guardamos los datos del horario del profesor en un array de Horario 
@@ -198,7 +200,7 @@ export class ComunicadoVisitasPage implements OnInit {
         // Solo se crea un objeto para guardarlo en DatosComunicado
         presentToast('Todo perfecto.');
         this.datos.push({  // Comunicación de visita de la única empresa que se va a
-          id: -1,
+          id: (this.last_id+1),
           motivo: this.motivo,
           fecha: this.fechaVisita.getDay() + '-' + this.fechaVisita.getMonth() + '-' + this.fechaVisita.getFullYear(),
           horario: this.horario,
@@ -206,12 +208,12 @@ export class ComunicadoVisitasPage implements OnInit {
           validado: false
         });
 
-        // this.datos.forEach(element => {
-        //   console.log('ID: ' + element.id
-        //            + '\nMotivo: ' + element.motivo
-        //            + '\nFecha: ' + element.fecha
-        //            + '\nEmpresa: ' + element.empresa);
-        // });
+         this.datos.forEach(element => {
+           console.log('ID: ' + element.id
+                    + '\nMotivo: ' + element.motivo
+                    + '\nFecha: ' + element.fecha
+                    + '\nEmpresa: ' + element.empresa);
+         });
         
         // se toman los datos, se escriben en el json 
       }
@@ -222,6 +224,22 @@ export class ComunicadoVisitasPage implements OnInit {
     }
   }// fin metodo enviar datos
 
+
+  read_visita() {
+    var lista_id: number[]= [];
+    fetch('./assets/data/visitas.json').then(res => res.json())
+    .then(json => {
+
+      // Iteramos el array del Json 'Visitas'
+       json.visitas.forEach((element: DatosComunicado[]) => {
+        lista_id.push(element['id']);
+        
+      });      
+      this.last_id = lista_id[lista_id.length-1];
+      //console.log("last_id: " + this.last_id);
+      
+    });        
+  }
 
   // Alert para modificar la asignatura.
   async modificarAsignatura(hora) {
@@ -298,8 +316,8 @@ export class ComunicadoVisitasPage implements OnInit {
         {
           text: 'OK',
           handler: (dato) => {
-            if (dato.aula!==""){
-              hora.cual_aula = dato.aula;
+            if (dato.aul!==""){
+              hora.cual_aula = dato.aul;
               presentToast('A las ' + hora.inicio + '-' + hora.fin + ' da clase en el aula ' + hora.cual_aula);
             }else{ presentToast('No has introducido el aula.'); }
           }
@@ -310,6 +328,7 @@ export class ComunicadoVisitasPage implements OnInit {
       await alert.present();
     }
   }
+
 
 }
 
